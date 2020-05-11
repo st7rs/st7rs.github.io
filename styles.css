@@ -39,7 +39,7 @@ body {
 #top-banner {
   background: radial-gradient(circle, var(--banner-bg-start), var(--banner-bg-end) 60%);
   /* background-color: var(--banner-bg-color); */
-  padding: 25px;
+  padding: 15px;
 
   /* these will be unnecessary once we get the banner image */
   color: white;
