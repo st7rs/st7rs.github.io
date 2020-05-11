@@ -1,25 +1,24 @@
 /* define constants up here */
 :root {
-  --banner-bg-start: #fd5e6d;
-  --banner-bg-end: #ef5079;
-  --produce-gray: #e4e4e4;
+  --banner-bg-start: #1cc3ca;
+  --banner-bg-end: #00b5c7;
+  --produce-gray: #e0e0e0;
   --search-text-gray: #949494;
-  --search-gray: #f2f2f2;
-  --affil-gray: #909090;
-  --name-gray: #2b2b2b;
-  --other-name-gray: #444444;
-  --ranking-affil-gray: #989898;
-  --save-box-gray: #b1b1b1;
+  --search-gray: #f0f0f0;
+  --affil-gray: #949494;
+  --name-gray: #000000;
+  --other-name-gray: #949494;
+  --ranking-affil-gray: #949494;
+  --save-box-gray: #949494;
 
-  --checked-blue: #052ae2CC;
+  --checked-blue: #6cb0ffe0;
 
   /* ranking border colors */
-  --a-rank: #fb4a8c;
-  --b-rank: #fc840c;
-  --c-rank: #ffc407;
-  --d-rank: #19b468;
+  --a-rank: #ff86b9;
+  --b-rank: #ffd638;
+  --c-rank: #1cc3ca;
   --f-rank: #a6a6a4;
-  --no-rank: #707070;
+  --no-rank: #949494;
 }
 
 p {
@@ -40,12 +39,13 @@ body {
 #top-banner {
   background: radial-gradient(circle, var(--banner-bg-start), var(--banner-bg-end) 60%);
   /* background-color: var(--banner-bg-color); */
-  padding: 25px;
+  padding: 15px;
 
   /* these will be unnecessary once we get the banner image */
   color: white;
   text-align: center;
 }
+
 #banner-image {
   width: 125px;
   margin-bottom: 15px;
@@ -56,14 +56,13 @@ body {
 }
 #banner-subtitle {
   font-family: 'Roboto Condensed', sans-serif;
-  color: #f3cdd3;
   font-size: 12px;
 }
 
 /* Styles for table */
 #table {
-  height: 40vh;
-  min-height: 350px;
+  height: 60vh;
+  min-height: 590px;
   width: 300px;
   box-shadow: 0px 2px 4px 0.1px var(--produce-gray);
   border-radius: 8px;
@@ -167,11 +166,11 @@ body {
   border-radius: 50%;
   width: 60px;
   height: 60px;
-  margin: 6px 8px;
+  margin: 10px;
   display: block;
   box-sizing: border-box;
   position: relative;
-  /* background-image: url(assets/trainees/leegaeun.jpg);
+  /* background-image: url(assets/trainees/zhengnaixin.png);
   background-size: 60px; */
 }
 .table__entry-img {
@@ -214,10 +213,10 @@ body {
   left: 0;
   right: 0;
   margin: auto;
-  width: 15px;
-  height: 15px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
-  background-color: #e3e3e3;
+  background-color: #e0e0e0;
   background-image: url(assets/crown.png);
   background-size: cover;
   background-repeat: no-repeat;
@@ -233,9 +232,6 @@ body {
 }
 .c-rank-border {
   border: 5px solid var(--c-rank);
-}
-.d-rank-border {
-  border: 5px solid var(--d-rank);
 }
 .f-rank-border {
   border: 5px solid var(--f-rank);
@@ -254,19 +250,19 @@ body {
 }
 
 .table__entry-text {
-  margin: auto 5px auto 5px;
+  margin: auto 5px;
   /* margin: auto auto; */
 }
 .table__entry-text .name {
   font-size: 12px;
   color: var(--name-gray);
 }
-.table__entry .hangul {
+.table__entry .mandarin {
   font-size: 12px;
   color: var(--other-name-gray);
 }
 .table__entry .companyandyear {
-  font-size: 10px;
+  font-size: 9px;
   color: var(--affil-gray);
   display: block;
 }
@@ -274,7 +270,7 @@ body {
 /* Ranking Styles */
 #ranking__pyramid {
   /* min-width: 350px; */
-  margin: 40px 40px 10px 40px;
+  margin: 10px 40px;
   display: flex;
   flex-direction: column;
 }
@@ -289,9 +285,9 @@ body {
 }
 .ranking__entry-view {
   position: relative;
-  width: 60px;
-  height: 60px;
-  margin: 10px 24px 8px 24px;
+  width: 120px;
+  height: 120px;
+  margin: 10px 20px;
 }
 .ranking__entry-icon {
   border-radius: 50%;
@@ -321,8 +317,8 @@ body {
 }
 .ranking__entry-icon-badge {
   position: absolute;
-  width: 15px;
-  height: 15px;
+  width: 20px;
+  height: 20px;
   left: 0;
   right: 0;
   bottom: -5px;
@@ -330,16 +326,16 @@ body {
   border-radius: 50%;
   background-color: var(--a-rank);
   box-sizing: border-box;
-  padding: 2px;
   /* badge text options */
   font-weight: 900;
-  font-size: 8px;
+  font-size: 12px;
   text-align: center;
   color: white;
+  line-height: 20px;
 }
 .ranking__row-text {
   font-family: 'Open Sans', sans-serif;
-  font-size: 11px;
+  font-size: 12px;
   text-align: center;
 }
 
@@ -356,9 +352,6 @@ body {
 .bg-c {
   background-color: var(--c-rank);
 }
-.bg-d {
-  background-color: var(--d-rank);
-}
 .bg-f {
   background-color: var(--f-rank);
 }
@@ -372,11 +365,12 @@ body {
   font-weight: 600;
   font-size: 9px;
   letter-spacing: 0.2px;
+  text-transform: uppercase;
 }
 
 /* Generic Styles */
 .padded-box {
-  padding: 40px;
+  padding: 40px 20px;
 }
 
 .flex-container {

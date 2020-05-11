@@ -61,34 +61,26 @@ function getRanking() {
 trainee: {
   id: ... // position in csv used for simple recognition
   name_romanized: ...
-  name_hangul: ...
-  name_japanese: ...
+  name_mandarin: ...
   company: ...
-  grade: a/b/c/d/f
-  birthyear: ...
+  grade: a/b/c/f
   image: ...
   selected: false/true // whether user selected them
   eliminated: false/true
-  top12: false/true
+  top7: false/true
 }
 */
 function convertCSVArrayToTraineeData(csvArrays) {
   trainees = csvArrays.map(function(traineeArray, index) {
     trainee = {};
     trainee.name_romanized = traineeArray[0];
-    if (traineeArray[2] === "-") {
-      // trainee only has hangul
-      trainee.name_hangul = traineeArray[1];
-    } else {
-      trainee.name_japanese = traineeArray[1];
-      trainee.name_hangul = traineeArray[2];
-    }
-    trainee.company = traineeArray[3];
-    trainee.grade = traineeArray[4];
-    trainee.birthyear = traineeArray[5];
-    trainee.eliminated = traineeArray[6] === 'e'; // sets trainee to be eliminated if 'e' appears in 6th col
-    trainee.top12 = traineeArray[6] === 't'; // sets trainee to top 12 if 't' appears in 6th column
-    trainee.id = parseInt(traineeArray[7]) - 1; // trainee id is the original ordering of the trainees in the first csv
+    trainee.name_mandarin = traineeArray[1];
+    trainee.company = traineeArray[2];
+    trainee.grade = traineeArray[3];
+    trainee.ranking = traineeArray[4];
+    trainee.eliminated = traineeArray[5] === 'e'; // sets trainee to be eliminated if 'e' appears in 6th col
+    trainee.top7 = traineeArray[5] === 't'; // sets trainee to top 12 if 't' appears in 6th column
+    trainee.id = parseInt(traineeArray[6]) - 1; // trainee id is the original ordering of the trainees in the first csv
     trainee.image =
       trainee.name_romanized.replace(" ", "").replace("-", "") + ".png";
     return trainee;
@@ -111,7 +103,7 @@ function newTrainee() {
 // Constructor for a blank ranking list
 function newRanking() {
   // holds the ordered list of rankings that the user selects
-  let ranking = new Array(12);
+  let ranking = new Array(11);
   for (let i = 0; i < ranking.length; i++) {
     ranking[i] = newTrainee();
   }
@@ -177,14 +169,14 @@ function populateTable(trainees) {
 function populateTableEntry(trainee) {
   // eliminated will have value "eliminated" only if trainee is eliminated and showEliminated is true, otherwise this is ""
   let eliminated = (showEliminated && trainee.eliminated) && "eliminated";
-  let top12 = (showTop12 && trainee.top12) && "top12";
+  let top7 = (showTop7 && trainee.top7) && "top7";
   const tableEntry = `
   <div class="table__entry ${eliminated}">
     <div class="table__entry-icon">
       <img class="table__entry-img" src="assets/trainees/${trainee.image}" />
       <div class="table__entry-icon-border ${trainee.grade.toLowerCase()}-rank-border"></div>
       ${
-        top12 ? '<div class="table__entry-icon-crown"></div>' : ''
+        top7 ? '<div class="table__entry-icon-crown"></div>' : ''
       }
       ${
         trainee.selected ? '<img class="table__entry-check" src="assets/check.png"/>' : ""
@@ -192,9 +184,9 @@ function populateTableEntry(trainee) {
     </div>
     <div class="table__entry-text">
       <span class="name"><strong>${trainee.name_romanized}</strong></span>
-      <span class="hangul">(${trainee.name_hangul})</span>
-      <span class="companyandyear">${trainee.company.toUpperCase()} •
-      ${trainee.birthyear}</span>
+      <span class="mandarin">${trainee.name_mandarin}</span>
+      <span class="companyandyear">${trainee.ranking} •
+      ${trainee.company.toUpperCase()}</span>
     </div>
   </div>`;
   return tableEntry;
@@ -238,20 +230,9 @@ function populateRanking() {
   }
 }
 
-const abbreviatedCompanies = {
-  "RAINBOW BRIDGE WORLD": "RBW",
-  "BLOCKBERRY CREATIVE": "BBC",
-  "INDIVIDUAL TRAINEE": "INDIVIDUAL",
-}
-
 function populateRankingEntry(trainee, currRank) {
-  let modifiedCompany = trainee.company.toUpperCase();
-  modifiedCompany = modifiedCompany.replace("ENTERTAINMENT", "ENT.");
-  if (abbreviatedCompanies[modifiedCompany]) {
-    modifiedCompany = abbreviatedCompanies[modifiedCompany];
-  }
   let eliminated = (showEliminated && trainee.eliminated) && "eliminated";
-  let top12 = (showTop12 && trainee.top12) && "top12";
+  let top7 = (showTop7 && trainee.top7) && "top7";
   const rankingEntry = `
   <div class="ranking__entry ${eliminated}">
     <div class="ranking__entry-view">
@@ -261,12 +242,12 @@ function populateRankingEntry(trainee, currRank) {
       </div>
       <div class="ranking__entry-icon-badge bg-${trainee.grade.toLowerCase()}">${currRank}</div>
       ${
-        top12 ? '<div class="ranking__entry-icon-crown"></div>' : ''
+        top7 ? '<div class="ranking__entry-icon-crown"></div>' : ''
       }
     </div>
     <div class="ranking__row-text">
       <div class="name"><strong>${trainee.name_romanized}</strong></div>
-      <div class="company">${modifiedCompany}</div>
+      <div class="company">${trainee.company.toUpperCase()}</div>
     </div>
   </div>`;
   return rankingEntry;
@@ -318,30 +299,7 @@ function swapTrainees(index1, index2) {
 // <original>: [<alternate1>, <alternate2>, <alternate3>, etc...]
 // <original> is the original name as appearing on csv
 // all of it should be lower case
-const alternateRomanizations = {
-  'heo yunjin': ['heo yoonjin', 'huh yoonjin', 'huh yunjin'],
-  'go yujin': ['ko yoojin', 'ko yujin', 'go yoojin'],
-  'kim yubin': ['kim yoobin'],
-  'lee yoojun': ['lee yujeong'],
-  'shin suhyun': ['shin soohyun', 'shin soohyeon', 'shin suhyeon'],
-  'jo ahyoung': ['cho ahyoung', 'cho ahyeong'],
-  'yu minyoung': ['yoo minyeong', 'yu minyeong', 'yoo minyoung'],
-  'park haeyoon': ['park haeyun'],
-  'park jinhee': ['jinny park'],
-  'jo sarang': ['cho sarang'],
-  'park chanju': ['park chanjoo'],
-  'lee gaeun': ['lee kaeun'],
-  'na goeun': ['na koeun'],
-  'ahn yujin': ['ahn yoojin'],
-  'jo gahyun': ['cho gahyun', 'jo kahyun', 'cho kahyun', 'jo kahyeon', 'cho kahyeon'],
-  'jo yuri': ['cho yuri'],
-  'yoon haesol': ['yun haesol'],
-  'kim minju': ['kim minjoo'],
-  'lee seunghyun': ['lee seunghyeon'],
-  'jo yeongin': ['cho yeongin', 'cho youngin', 'jo youngin'],
-  'kim suyun': ['kim sooyoon'],
-  'kim sihyun': ['kim shihyun', 'kim sihyeon']
-};
+const alternateRomanizations = {};
 
 // uses the current filter text to create a subset of trainees with matching info
 function filterTrainees(event) {
@@ -349,7 +307,7 @@ function filterTrainees(event) {
   // filters trainees based on name, alternate names, and company
   filteredTrainees = trainees.filter(function (trainee) {
     let initialMatch = includesIgnCase(trainee.name_romanized, filterText) || includesIgnCase(trainee.company, filterText);
-    // if alernates exists then check them as well
+    // if alternates exists then check them as well
     let alternateMatch = false;
     let alternates = alternateRomanizations[trainee.name_romanized.toLowerCase()]
     if (alternates) {
@@ -381,7 +339,7 @@ function addRankedTrainee(trainee) {
 
 function removeRankedTrainee(trainee) {
   for (let i = 0; i < ranking.length; i++) {
-    if (ranking[i].id === trainee.id) { // if trainee's match
+    if (ranking[i].id === trainee.id) { // if trainees match
       ranking[i] = newTrainee();
       return true;
     }
@@ -389,7 +347,7 @@ function removeRankedTrainee(trainee) {
   return false;
 }
 
-const currentURL = "https://produce48.github.io/";
+const currentURL = "https://sheronimo.github.io/chuang2020";
 // Serializes the ranking into a string and appends that to the current URL
 function generateShareLink() {
   let shareCode = ranking.map(function (trainee) {
@@ -421,7 +379,7 @@ var trainees = [];
 var filteredTrainees = [];
 // holds the ordered list of rankings that the user selects
 var ranking = newRanking();
-const rowNums = [1, 2, 4, 5];
+const rowNums = [1, 2, 4, 4];
 //window.addEventListener("load", function () {
   populateRanking();
   readFromCSV("./trainee_info.csv");
