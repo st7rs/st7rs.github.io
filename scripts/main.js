@@ -79,7 +79,7 @@ function convertCSVArrayToTraineeData(csvArrays) {
     trainee.grade = traineeArray[3];
     trainee.ranking = traineeArray[4];
     trainee.eliminated = traineeArray[5] === 'e'; // sets trainee to be eliminated if 'e' appears in 6th col
-    trainee.top12 = traineeArray[5] === 't'; // sets trainee to top 12 if 't' appears in 6th column
+    trainee.top7 = traineeArray[5] === 't'; // sets trainee to top 12 if 't' appears in 6th column
     trainee.id = parseInt(traineeArray[6]) - 1; // trainee id is the original ordering of the trainees in the first csv
     trainee.image =
       trainee.name_romanized.replace(" ", "").replace("-", "") + ".png";
@@ -247,7 +247,7 @@ function populateRankingEntry(trainee, currRank) {
     </div>
     <div class="ranking__row-text">
       <div class="name"><strong>${trainee.name_romanized}</strong></div>
-      <div class="company">${trainee.name_mandarin}</div>
+      <div class="company">${trainee.name_company}</div>
     </div>
   </div>`;
   return rankingEntry;
@@ -379,7 +379,7 @@ var trainees = [];
 var filteredTrainees = [];
 // holds the ordered list of rankings that the user selects
 var ranking = newRanking();
-const rowNums = [1, 2, 3, 4];
+const rowNums = [1, 2, 4, 4];
 //window.addEventListener("load", function () {
   populateRanking();
   readFromCSV("./trainee_info.csv");
