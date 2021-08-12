@@ -285,8 +285,8 @@ body {
 }
 .ranking__entry-view {
   position: relative;
-  width: 120px;
-  height: 120px;
+  width: 100px;
+  height: 100px;
   margin: 10px 20px;
 }
 .ranking__entry-icon {
