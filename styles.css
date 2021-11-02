@@ -14,11 +14,17 @@
   --checked-blue: #e8cba9;
 
   /* ranking border colors */
-  --a-rank: #ff86b9;
-  --b-rank: #ffd638;
-  --c-rank: #1cc3ca;
-  --f-rank: #a6a6a4;
-  --no-rank: #949494;
+  --ac-rank: #B03E56;
+  --as-rank: #C638AB;
+  --at-rank: #EA733E;
+  --e-rank: #5BD17A;
+  --n-rank: #9CF25C;
+  --o-rank: #315683;
+  --s-rank: #E63259;
+  --tb-rank: #58DFE6;
+  --tx-rank: #5757EF;
+  --v-rank: #F0F28C;
+  --no-rank: #707070;
 }
 
 p {
@@ -224,17 +230,35 @@ body {
   background-origin: content-box;
 }
 /* Different entry borders */
-.a-rank-border {
-  border: 5px solid var(--a-rank);
+.ac-rank-border {
+  border: 5px solid var(--ac-rank);
 }
-.b-rank-border {
-  border: 5px solid var(--b-rank);
+.as-rank-border {
+  border: 5px solid var(--as-rank);
 }
-.c-rank-border {
-  border: 5px solid var(--c-rank);
+.at-rank-border {
+  border: 5px solid var(--at-rank);
 }
-.f-rank-border {
-  border: 5px solid var(--f-rank);
+.e-rank-border {
+  border: 5px solid var(--e-rank);
+}
+.n-rank-border {
+  border: 5px solid var(--n-rank);
+}
+.o-rank-border {
+  border: 5px solid var(--o-rank);
+}
+.s-rank-border {
+  border: 5px solid var(--s-rank);
+}
+.tb-rank-border {
+  border: 5px solid var(--tb-rank);
+}
+.tx-rank-border {
+  border: 5px solid var(--tx-rank);
+}
+.v-rank-border {
+  border: 5px solid var(--v-rank);
 }
 .no-rank-border {
   border: none;
@@ -343,17 +367,35 @@ body {
 .bg-no {
   background-color: var(--no-rank);
 }
-.bg-a {
-  background-color: var(--a-rank);
+.bg-ac {
+  background-color: var(--ac-rank);
 }
-.bg-b {
-  background-color: var(--b-rank);
+.bg-as {
+  background-color: var(--as-rank);
 }
-.bg-c {
-  background-color: var(--c-rank);
+.bg-at {
+  background-color: var(--at-rank);
 }
-.bg-f {
-  background-color: var(--f-rank);
+.bg-e {
+  background-color: var(--e-rank);
+}
+.bg-n {
+  background-color: var(--n-rank);
+}
+.bg-o {
+  background-color: var(--o-rank);
+}
+.bg-s {
+  background-color: var(--s-rank);
+}
+.bg-tb {
+  background-color: var(--tb-rank);
+}
+.bg-tx {
+  background-color: var(--tx-rank);
+}
+.bg-v {
+  background-color: var(--v-rank);
 }
 .eliminated .ranking__entry-icon-badge {
   background-color: var(--no-rank);
