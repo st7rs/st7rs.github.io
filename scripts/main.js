@@ -347,7 +347,7 @@ function removeRankedTrainee(trainee) {
   return false;
 }
 
-const currentURL = "https://yiseong-hwang.github.io/hatch7season2/";
+const currentURL = "https://st7rs.github.io/";
 // Serializes the ranking into a string and appends that to the current URL
 function generateShareLink() {
   let shareCode = ranking.map(function (trainee) {
